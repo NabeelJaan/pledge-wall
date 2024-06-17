@@ -108,28 +108,3 @@ function tailpress_nav_menu_add_submenu_class( $classes, $args, $depth ) {
 }
 
 add_filter( 'nav_menu_submenu_css_class', 'tailpress_nav_menu_add_submenu_class', 10, 3 );
-
-
-// Form Submission
-
-// if (isset($_POST['submit'])) {
-//     // Ensure global $wpdb is available
-//     global $wpdb;
-    
-//     // Prepare data to be inserted
-//     $data = array(
-//         'userName' => $_POST['userName'],
-//         'pledgeText' => $_POST['pledgeText']
-//     );
-//     $table_name = 'pledge_wall';
-    
-//     // Insert data into the table
-//     $result = $wpdb->insert($table_name, $data);
-    
-//     // Check if the insert was successful
-//     if ($result === false) {
-//         echo "<script>alert('Error: Pledge not saved.')</script>";
-//     } else {
-//         echo "<script>alert('Pledge saved successfully.')</script>";
-//     }
-// }

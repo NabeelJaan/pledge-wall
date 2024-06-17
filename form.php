@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     );
 
     // Use the correct table name with the proper prefix
-    $table_name = $wpdb->prefix . 'pledge_wall';=
+    $table_name = $wpdb->prefix . 'pledge_wall';
 
     // Insert data into the table
     $result = $wpdb->insert($table_name, $data);

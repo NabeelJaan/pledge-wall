@@ -1,10 +1,11 @@
 <?php
     // Template Name: Pledge Wall
+    get_header();
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'pledge_wall'; // Ensure the table name is correctly prefixed
+    $results = $wpdb->get_results("SELECT * FROM $table_name");
 ?>
-
-<?php get_header(); ?>
-
-
 
 <main>
     <!-- pledge Head -->
@@ -19,136 +20,51 @@
     <!-- Pledge -->
     <div class="max-w-[1280px] mx-auto mt-4 pb-10">
         <div class="grid grid-cols-5 gap-3">
+            <?php 
+                if ($results) {
+                    $first = true;
+                    foreach( $results as $pledge) {
+                        if ($first) {
+                            // First iteration with special structure
+                            $first = false;
+            ?>
             <div class="w-full -mt-44 col-span-2">
                 <div class="bg-white h-[498px] p-3 border-2 border-red-600 rounded-md shadow-md">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
+                        <h2 class="text-red-600 font-bold"><?php echo esc_html($pledge->userName); ?></h2>
                         <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
                     </div>
-
                     <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
                     <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
+                        <p class="mt-2 text-gray-600"><?php echo esc_html($pledge->pledgeText); ?></p>
                     </div>
                 </div>
             </div>
+            <?php
+                        } else {
+                            // Subsequent iterations with regular structure
+            ?>
             <div class="w-full">
                 <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
+                        <h2 class="text-red-600 font-bold"><?php echo esc_html($pledge->userName); ?></h2>
                         <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
                     </div>
-
                     <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
                     <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
+                        <p class="mt-2 text-gray-600"><?php echo esc_html($pledge->pledgeText); ?></p>
                     </div>
                 </div>
             </div>
-            <!-- Repeat the above block for each pledge card -->
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-red-600 font-bold">Full Name</h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
-                    </div>
-
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
-                    
-                    <div class="mt-4">
-                        <p class="mt-2 text-gray-600">et pulvinar interdum, lacus enim vehicula erat, in rutrum turpis justo non ex. Etiam vehicula est ante id bibendum.</p>
-                    </div>
-                </div>
-            </div>
+            <?php 
+                        }
+                    }
+                } else {
+                    echo '<p class="col-span-5 text-center text-gray-600">No pledges found.</p>';
+                }
+            ?>
         </div>
     </div>
 </main>
-
 
 <?php get_footer(); ?>
