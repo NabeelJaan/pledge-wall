@@ -3,13 +3,13 @@
     get_header();
     
     global $wpdb;
-    $table_name = $wpdb->prefix . 'pledge_wall'; // Ensure the table name is correctly prefixed
+    $table_name = $wpdb->prefix . 'pledge_wall';
     $results = $wpdb->get_results("SELECT * FROM $table_name");
 ?>
 
 <main>
     <!-- pledge Head -->
-    <div class="bg-red-600 text-white pt-48 pb-28">
+    <div class="text-white pt-[300px] pb-28 bg-cover bg-no-repeat" style="background-image: url('/wp-content/uploads/2024/06/banner-e1718627400722.webp');">
         <div class="max-w-[1200px] mx-auto">
             <div class="max-w-[700px] ml-auto mb-[-66px]">
                 <h1 class="text-3xl font-bold">Apex Pledge Wall</h1>
@@ -26,7 +26,6 @@
                     foreach( $results as $pledge) {
                         $image_url = wp_get_attachment_url($pledge->pledgeImage); // Get the image URL
                         if ($first) {
-                            // First iteration with special structure
                             $first = false;
             ?>
             <div class="w-full -mt-44 col-span-2">
