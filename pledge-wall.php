@@ -24,6 +24,7 @@
                 if ($results) {
                     $first = true;
                     foreach( $results as $pledge) {
+                        $image_url = wp_get_attachment_url($pledge->pledgeImage); // Get the image URL
                         if ($first) {
                             // First iteration with special structure
                             $first = false;
@@ -32,9 +33,9 @@
                 <div class="bg-white h-[498px] p-3 border-2 border-red-600 rounded-md shadow-md">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-red-600 font-bold"><?php echo esc_html($pledge->userName); ?></h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
+                        <img class="w-8 h-auto" src="<?php echo esc_url($image_url); ?>" alt="Profile Picture">
                     </div>
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
+                    <img class="w-full h-auto object-cover rounded-md" src="<?php echo esc_url($image_url); ?>" alt="Profile Picture">
                     <div class="mt-4">
                         <p class="mt-2 text-gray-600"><?php echo esc_html($pledge->pledgeText); ?></p>
                     </div>
@@ -48,9 +49,9 @@
                 <div class="bg-white p-3 border-2 border-red-600 rounded-md shadow-md h-[320px]">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-red-600 font-bold"><?php echo esc_html($pledge->userName); ?></h2>
-                        <img class="w-8 h-auto" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Country Flag">
+                        <img class="w-8 h-auto" src="<?php echo esc_url($image_url); ?>" alt="Profile Picture">
                     </div>
-                    <img class="w-full h-auto object-cover rounded-md" src="/wp-content/uploads/2024/06/womenjpg.jpg" alt="Profile Picture">
+                    <img class="w-full h-auto object-cover rounded-md" src="<?php echo esc_url($image_url); ?>" alt="Profile Picture">
                     <div class="mt-4">
                         <p class="mt-2 text-gray-600"><?php echo esc_html($pledge->pledgeText); ?></p>
                     </div>
