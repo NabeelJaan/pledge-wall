@@ -1,70 +1,14 @@
 <?php
+
 // Template Name: form
-get_header(); 
+get_header();
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-    global $wpdb;
-
-    // Prepare data to be inserted
-    $data = array(
-        'userName' => sanitize_text_field($_POST['userName']),
-        'pledgeText' => sanitize_textarea_field($_POST['pledgeText'])
-    );
-
-    // Handle file upload
-    if (!empty($_FILES['pledgeImage']['name'])) {
-        require_once(ABSPATH . 'wp-admin/includes/file.php');
-        require_once(ABSPATH . 'wp-admin/includes/image.php');
-        require_once(ABSPATH . 'wp-admin/includes/media.php');
-
-        $uploadedfile = $_FILES['pledgeImage'];
-        $upload_overrides = array('test_form' => false);
-        $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
-
-        if ($movefile && !isset($movefile['error'])) {
-            $filename = $movefile['file'];
-
-            // The ID of the newly created attachment.
-            $attachment_id = wp_insert_attachment(array(
-                'guid' => $movefile['url'], 
-                'post_mime_type' => $movefile['type'], 
-                'post_title' => preg_replace('/\.[^.]+$/', '', basename($filename)), 
-                'post_content' => '', 
-                'post_status' => 'inherit'
-            ), $filename);
-
-            // Generate the metadata for the attachment, and update the database record.
-            $attach_data = wp_generate_attachment_metadata($attachment_id, $filename);
-            wp_update_attachment_metadata($attachment_id, $attach_data);
-
-            // Add attachment ID to the data array
-            $data['pledgeImage'] = $attachment_id;
-        } else {
-            echo "<script>alert('Error: " . $movefile['error'] . "');</script>";
-        }
-    }
-
-    // Use the correct table name with the proper prefix
-    $table_name = $wpdb->prefix . 'pledge_wall';
-
-    // Insert data into the table
-    $result = $wpdb->insert($table_name, $data);
-
-    if ($result === false) {
-        echo "<script>alert('Error: Pledge not saved.');</script>";
-    } else {
-        echo "<script>alert('Error: Pledge saved.');</script>";
-        // wp_redirect(home_url('/thank-you'));
-        // exit();
-    }
-}
 ?>
 
-<div class="my-20">
-   <div class="bg-white p-8 max-w-[600px] mx-auto border rounded-md">
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold">Event Banner</h1>
+<div class="my-20 px-4 xl:px-0">
+   <div class="bg-white p-4 md:p-8 max-w-[600px] mx-auto border rounded-md">
+        <div class="event_form mb-4">
+            <img src="<?php the_field('pw_event_banner'); ?>" alt="event banner">
         </div>
         <form id="pledgeForm" role="form" method="post" enctype="multipart/form-data">
             <div class="mb-4">
@@ -72,18 +16,45 @@ if (isset($_POST['submit'])) {
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="userName" type="text" placeholder="Your Name" required>
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 font-bold mb-2" for="pledge">Make Your Pledge!</label>
-                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pledge" name="pledgeText" placeholder="Your Pledge" required></textarea>
+                <label class="block text-gray-700 font-bold mb-2" for="pledge">Make Your message!</label>
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pledge" name="pledgeText" placeholder="Your Message" required></textarea>
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 font-bold mb-2" for="image">Upload your Picture</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" name="pledgeImage" type="file" required>
+                <label class="block text-gray-700 font-bold mb-2" for="image">Upload your Picture (optional)</label>
+                <input class="shadow cursor-pointer inline-flex max-w-[230px] appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" name="pledgeImage" type="file" accept=".jpg, .jpeg, .png, .webp">
+                <span id="fileMessage" class="text-red-500 mt-2"></span>
             </div>
-            <div class="flex items-center justify-center">
-                <button type="submit" name="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+            <div class="">
+                <button type="submit" name="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
             </div>
         </form>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('image').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const fileMessage = document.getElementById('fileMessage');
+
+        if (file) {
+            const fileType = file.type;
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+            if (validTypes.includes(fileType)) {
+                fileMessage.textContent = 'File accepted: ' + file.name;
+                fileMessage.classList.remove('text-red-500');
+                fileMessage.classList.add('text-green-500');
+            } else {
+                fileMessage.textContent = 'Invalid file type. Please upload an image file (jpg, png, webp).';
+                fileMessage.classList.remove('text-green-500');
+                fileMessage.classList.add('text-red-500');
+                event.target.value = '';
+            }
+        } else {
+            fileMessage.textContent = '';
+        }
+    });
+</script>
 
 <?php get_footer(); ?>

@@ -11,9 +11,9 @@
 
 <body <?php body_class( 'bg-white antialiased' ); ?>>
 
-	<header>
+	<header class="px-4 xl:px-0">
 
-		<div class="mx-auto container">
+		<div class="max-w-[1280px] mx-auto">
 			<div class="lg:flex lg:justify-between lg:items-center border-b py-6">
 				<div class="flex justify-between items-center">
 					<div>
